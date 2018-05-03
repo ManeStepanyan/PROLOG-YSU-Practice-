@@ -38,3 +38,24 @@ append([X|L1], L2, [X|L]):- append(L1, L2, L).
 //reverse lists
 reverse([],[]):- !.
 reverse([A|B],C):-  reverse(B,R), append(R,A,C).
+
+/*  Add value to the end of the list  */
+cons(X, [], [X]).
+cons(X,[A|B],[C|D]):- cons(X,B,D).
+/*   Reverse a list   */
+toReverse([],[]).
+toReverse([A|B], [C]):- toReverse( B, D  ), cons( A,D,C).
+  /* sort a list */
+sorter([],[]).
+sorter([X|Y],Z):- sorter( Y,Z1), insertik(X,Z1,Z).
+ insertik(X,[],[X]).
+ insertik(X,[Y|Z], [X|[Y|Z]]):- X=<Y.
+ insertik(X,[Y|Z],[Y|Z1]):- X>Y, insertik(X,Z,Z1 ).
+/* delete last element from the list */
+deletelastelement([A|[]], []).
+deletelastelement([X|Y], [X,Z]):-deletelastelement(Y,Z).
+
+/* double the specified value in the list   */
+func(X,[],[]).
+func(X,[A|B],[A|[A|Z]]):-X=A, func(X,B,Z).
+func(X,[A|B],[A|Z]):- func(X,B,Z).
