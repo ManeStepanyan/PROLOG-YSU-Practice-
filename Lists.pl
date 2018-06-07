@@ -59,3 +59,36 @@ deletelastelement([X|Y], [X,Z]):-deletelastelement(Y,Z).
 func(X,[],[]).
 func(X,[A|B],[A|[A|Z]]):-X=A, func(X,B,Z).
 func(X,[A|B],[A|Z]):- func(X,B,Z).
+
+
+/* last element of a list */
+last([_],A):- !
+last([_|L],X):-last(L,X).
+/* K'th element of a list */
+func1([A|_],N,A):-N is 1.
+func1([_|L],K,RES):- K1 is K-1, func1(L,K1,RES).
+/* count of elements */
+func2([],0).
+func2([_|L],X):- func2(L,X1), X is X1+1.
+/* reverse a list */
+reverse1([],[]).
+reverse1([A|B],C):-  reverse1(B,R), append1(R,A,C).
+append1([], L, L):-!.
+append1([X|L1], L2, [X|L]):- append1(L1, L2, L).
+/* make non-linear list into linear */
+tononlinear([],[]):- !.
+tononlinear(A,[A]):- atomic(A).
+tononlinear([A|B],C):- tononlinear(A,D),tononlinear(B,B1), append1(D,B1,C). 
+/* eliminate duplicates */
+/* eliminate duplicates */
+/*deleteduplicates1([],[]):- !.
+deleteduplicates1([A|B],[L]):-  onlyonce(B,A), deleteduplicates1(B,D), append1(A,D,L).
+deleteduplicates1([_|B],[L]):- deleteduplicates1(B,L). *.
+
+
+
+isnotrepeated([],_):- !.
+isnotrepeated([A|B],C):- A\=C, isnotrepeated(B,C).
+
+onlyonce([],_).
+onlyonce([A|B],C):- C \=A, onlyonce(B,C).
